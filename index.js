@@ -129,7 +129,18 @@ bot.hears('Winner Lists', async (ctx) => {
             winnersText = 'No winners found.';
         } else {
             allWinners.forEach((winner, index) => {
-                winnersText += `Winner #${index + 1} - Address: ${winner.addressWin}, Draw Number: ${winner.drawNum}, Bet Amount: ${web3.utils.fromWei(winner.betAmount, 'gwei')} L4D, Win Amount: ${web3.utils.fromWei(winner.winAmount, 'gwei')} L4D, Digit: ${winner.digit}\n`;
+                let betAmount = 'N/A';
+                let winAmount = 'N/A';
+
+                if (winner.betAmount !== undefined) {
+                    betAmount = w3.utils.fromWei(winner.betAmount.toString(), 'ether');
+                }
+
+                if (winner.winAmount !== undefined) {
+                    winAmount = w3.utils.fromWei(winner.winAmount.toString(), 'ether');
+                }
+
+                winnersText += `Winner #${index + 1} - Address: ${winner.addressWin}, Draw Number: ${winner.drawNum}, Bet Amount: ${betAmount} L4D, Win Amount: ${winAmount} L4D, Digit: ${winner.digit}\n`;
             });
         }
         ctx.reply(winnersText);
@@ -138,6 +149,7 @@ bot.hears('Winner Lists', async (ctx) => {
         ctx.reply("Error retrieving winners.");
     }
 });
+
 
   bot.launch();
 
