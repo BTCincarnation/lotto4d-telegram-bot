@@ -90,7 +90,7 @@ bot.hears('Last Draw Result', async (ctx) => {
     try {
         const contract = new w3.eth.Contract(contractABI, contractAddress);
         const lastDrawResult = await contract.methods.getLastDrawResult().call();
-        ctx.reply(`Last Draw Result: ${lastDrawResult}`);
+        ctx.reply(`Last Draw Result: ${lastDrawResult.padStart(4, '0')}`);
     } catch (error) {
         console.error('Error retrieving the last draw result:', error);
         ctx.reply("Error retrieving the last draw result.");
@@ -109,7 +109,7 @@ bot.hears('Draw Result Lists', async (ctx) => {
         } else {
             allDrawResults.forEach((result, index) => {
                 const timestamp = new Date(result.timestamp * 1000); // Convert timestamp to a readable date
-                resultText += `Draw #${index + 1}: ${result.result}, Timestamp: ${timestamp}\n`;
+                resultText += `Draw #${index + 1}: ${result.result.padStart(4, '0')}, Date: ${timestamp}\n`;
             });
         }
         ctx.reply(resultText);
@@ -133,14 +133,14 @@ bot.hears('Winner Lists', async (ctx) => {
                 let winAmount = 'N/A';
 
                 if (winner.betAmount !== undefined) {
-                    betAmount = w3.utils.fromWei(winner.betAmount.toString(), 'ether');
+                    betAmount = w3.utils.fromWei(winner.betAmount.toString(), 'gwei');
                 }
 
                 if (winner.winAmount !== undefined) {
-                    winAmount = w3.utils.fromWei(winner.winAmount.toString(), 'ether');
+                    winAmount = w3.utils.fromWei(winner.winAmount.toString(), 'gwei');
                 }
 
-                winnersText += `Winner #${index + 1} - Address: ${winner.addressWin}, Draw Number: ${winner.drawNum}, Bet Amount: ${betAmount} L4D, Win Amount: ${winAmount} L4D, Digit: ${winner.digit}\n`;
+                winnersText += `#${index + 1} - Address: ${winner.addressWin.slice(0, 15)}xxxxxx}, Result: ${winner.drawNum.padStart(4, '0')}, Bet: ${betAmount} L4D, Win: ${winAmount} L4D, Digit: ${winner.digit}\n`;
             });
         }
         ctx.reply(winnersText);
@@ -149,7 +149,6 @@ bot.hears('Winner Lists', async (ctx) => {
         ctx.reply("Error retrieving winners.");
     }
 });
-
 
   bot.launch();
 
