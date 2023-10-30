@@ -11,9 +11,9 @@ const { Telegraf, Markup } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Create a new connection to the Polygon Chain
-const w3 = new Web3(new Web3.providers.HttpProvider('https://polygon-testnet.public.blastapi.io'));
+const w3 = new Web3(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io'));
 
-const contractAddress = '0x989c852D2fED95e2A7ef7392ee1223ea5B91b8c2';
+const contractAddress = '0x07E78d26FCfF2E3bcAb75AB2cCaA7AFD5E84cEe2';
 
 // Define the commands that your bot will respond to
 bot.start((ctx) => {
@@ -46,7 +46,7 @@ bot.help((ctx) => {
 
 bot.hears('Contract Address', async (ctx) => {
     try {
-        ctx.reply('SmartContract Address: 0x989c852D2fED95e2A7ef7392ee1223ea5B91b8c2\n' +
+        ctx.reply('SmartContract Address: 0x07E78d26FCfF2E3bcAb75AB2cCaA7AFD5E84cEe2\n' +
                   'Network: Polygon')
     } catch (error) {
         console.log('error', error)
@@ -63,12 +63,12 @@ bot.hears('Info', async (ctx) => {
             'Symbol: L4D\n' +
             'Decimals: 9\n' +
             'Network: Polygon\n' +
-            'Total Supply: 7.000.000 L4D\n' +
-            'ICO Token: 6.000.000 L4D\n' +
+            'Total Supply: 10.000.000 L4D\n' +
+            'ICO Token: 9.000.000 L4D\n' +
             'Initial Lotto4D Pool Balance: 1.000.000 L4D\n' +
-            'ICO Start At 10 Nov 2023 - 17 Nov 2023\n' +
+            'ICO Start At 02 Nov 2023 - 09 Nov 2023\n' +
             'ICO For Early Investor Price: 1 MATIC = 5 L4D\n' +
-            'ICO At https://Cointool.app')
+            'ICO At https://www.pinksale.finance/launchpad/0x07E78d26FCfF2E3bcAb75AB2cCaA7AFD5E84cEe2?chain=Matic')
     } catch (error) {
         ctx.reply('error sending Info')
     }
