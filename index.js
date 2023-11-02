@@ -11,7 +11,7 @@ const { Telegraf, Markup } = require("telegraf");
 const bot = new Telegraf(process.env.BOT_TOKEN);
 
 // Create a new connection to the Polygon Chain
-const w3 = new Web3(new Web3.providers.HttpProvider('https://polygon-mainnet.infura.io'));
+const w3 = new Web3(new Web3.providers.HttpProvider('https://polygon.llamarpc.com'));
 
 const contractAddress = '0x07E78d26FCfF2E3bcAb75AB2cCaA7AFD5E84cEe2';
 
@@ -20,7 +20,7 @@ bot.start((ctx) => {
     ctx.reply("Welcome to Lotto4DToken Bot! Choose an option:", {
         reply_markup: {
             keyboard: [
-        ['Contract Address', 'Info'],
+        ['Contract Address', 'Info', 'Events'],
         ['Pool Lotto4D', 'Last Draw Result'],
         ['Draw Result Lists', 'Winner Lists']
             ],
@@ -29,12 +29,24 @@ bot.start((ctx) => {
         }
     });
 });
-
+bot.menu((ctx) => {
+    ctx.reply("Welcome to Lotto4DToken Bot! Choose an option:", {
+        reply_markup: {
+            keyboard: [
+        ['Contract Address', 'Info', 'Events'],
+        ['Pool Lotto4D', 'Last Draw Result'],
+        ['Draw Result Lists', 'Winner Lists']
+            ],
+            resize_keyboard: true,
+            one_time_keyboard: true,
+        }
+    });
+});
 bot.help((ctx) => {
     ctx.reply("Welcome to Lotto4DToken Bot! Choose an option:", {
         reply_markup: {
             keyboard: [
-        ['Contract Address', 'Info'],
+        ['Contract Address', 'Info', 'Events'],
         ['Pool Lotto4D', 'Last Draw Result'],
         ['Draw Result Lists', 'Winner Lists']
             ],
@@ -68,7 +80,33 @@ bot.hears('Info', async (ctx) => {
             'Initial Lotto4D Pool Balance: 1.000.000 L4D\n' +
             'ICO Start At 02 Nov 2023 - 09 Nov 2023\n' +
             'ICO For Early Investor Price: 1 MATIC = 5 L4D\n' +
-            'ICO At https://www.pinksale.finance/launchpad/0x07E78d26FCfF2E3bcAb75AB2cCaA7AFD5E84cEe2?chain=Matic')
+            'ICO At https://www.pinksale.finance/launchpad/0x40A6C7D7D41bF74d910AD26A558c6Fd885c73a77?chain=Matic')
+    } catch (error) {
+        ctx.reply('error sending Info')
+    }
+})
+
+bot.hears('Info', async (ctx) => {
+    try {
+        ctx.reply('Events:\n' +
+            '======================================\n' +
+            'Event #1\n' +
+            'Celeration Launch\n' +
+            '1000 L4D Pool Giveaway For 100 User\n' +
+            'Date: 02 Nov - 06 Nov 2023\n' +
+            'Claim by submit the form\n' +
+            'https://forms.gle/1igT8m5HPzyh3nuk8\n' +
+            '--------------------------------------\n' +
+            'Event #2\n' +
+            'First Winners\n' +
+            '1250 USDT Price Pool!\n' +
+            'Become 1st Winner For:\n' +
+            '2 digit guess number prize: 50 USDT\n' +
+            '3 digit guess number prize: 200 USDT\n' +
+            '4 digit guess number prize: 1000 USDT\n' +
+            'Date: 02 Nov - 31 Des 2023\n' +
+            'Distribute price send directly to \n' +
+            'Winner wallet address, with in 3 business day')
     } catch (error) {
         ctx.reply('error sending Info')
     }
