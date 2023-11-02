@@ -93,7 +93,7 @@ bot.hears('Info', async (ctx) => {
             'Event #1\n' +
             'Celeration Launch\n' +
             '1000 L4D Pool Giveaway For 100 User\n' +
-            'Date: 02 Nov - 06 Nov 2023\n' +
+            'Date: 02 Nov - 09 Nov 2023\n' +
             'Claim by submit the form\n' +
             'https://forms.gle/1igT8m5HPzyh3nuk8\n' +
             '--------------------------------------\n' +
